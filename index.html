@@ -25,10 +25,10 @@
             width: 80%;
             margin: 20px;
             display: grid;
-            grid-template-rows: auto 1fr auto;
+            grid-template-rows: auto auto 1fr; /* Rows for the result, functions, and buttons */
             gap: 10px;
-            justify-items: center;
-            justify-content: center;
+            justify-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
         }
 
         #result {
@@ -47,14 +47,14 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            justify-items: center;
+            justify-items: center; /* Center horizontally */
         }
 
         .button-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            justify-items: center;
+            justify-items: center; /* Center horizontally */
         }
 
         .button {
@@ -64,21 +64,22 @@
             border: none;
             border-radius: 20px;
             margin: 10px;
-            background-color: #06f026;
+            background-color: #06f026; /* Green color for calculator buttons */
             color: white;
             cursor: pointer;
+            /* 3D Button Effect */
             box-shadow: 0 4px #054905;
             transition: box-shadow 0.3s;
         }
 
         .button:hover {
             background-color: #054905;
+            /* 3D Button Hover Effect */
             box-shadow: 0 2px #054905;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 480px) {
             #calculator {
-                grid-template-columns: repeat(3, 1fr);
                 max-width: 300px;
             }
 
@@ -93,29 +94,11 @@
             }
 
             .button-container {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
             }
 
             .function-buttons {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-
-        /* Additional media queries for smaller devices (mobile phones) */
-        @media screen and (max-width: 480px) {
-            #calculator {
-                max-width: 250px;
-            }
-
-            #result {
-                font-size: 20px;
-                height: 60px;
-            }
-
-            .button {
-                font-size: 16px;
-                width: 50px;
-                height: 50px;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -144,7 +127,6 @@
             <button class="button" onclick="appendValue('+')">+</button>
         </div>
     </div>
-
 <script>
     // Updated JavaScript code
     let clearOnNextInput = true;

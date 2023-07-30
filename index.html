@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Digital 3D Calculator</title>
@@ -33,7 +33,7 @@
 
         #result {
             font-size: 36px;
-            width: 100%;
+            width: 90%;
             height: 80px;
             padding: 20px 10px;
             margin-bottom: 20px;
@@ -102,69 +102,86 @@
             }
         }
     </style>
-</head>
-<body>
-    <div id="calculator">
-        <input type="text" id="result" readonly oninput="validateInput()">
-        <div class="function-buttons">
-            <button class="button" onclick="clearResult()">C</button>
-            <button class="button" onclick="appendValue('.')">.</button>
-        </div>
-        <div class="button-container">
-            <button class="button" onclick="appendValue('7')">7</button>
-            <button class="button" onclick="appendValue('8')">8</button>
-            <button class="button" onclick="appendValue('9')">9</button>
-            <button class="button" onclick="appendValue('/')">/</button>
-            <button class="button" onclick="appendValue('4')">4</button>
-            <button class="button" onclick="appendValue('5')">5</button>
-            <button class="button" onclick="appendValue('6')">6</button>
-            <button class="button" onclick="appendValue('*')">*</button>
-            <button class="button" onclick="appendValue('1')">1</button>
-            <button class="button" onclick="appendValue('2')">2</button>
-            <button class="button" onclick="appendValue('3')">3</button>
-            <button class="button" onclick="appendValue('-')">-</button>
-            <button class="button" onclick="appendValue('0')">0</button>
-            <button class="button" onclick="appendValue('+')">+</button>
-        </div>
-    </div>
-<script>
-    // Updated JavaScript code
-    let clearOnNextInput = true;
+ </head>
+ <body>
+     <div id="calculator">
+         <input type="text" id="result" readonly oninput="validateInput()">
+         <div class="button-container">
+             <!-- Numeric Buttons -->
+             <button class="button" onclick="appendValue('7')">7</button>
+             <button class="button" onclick="appendValue('8')">8</button>
+             <button class="button" onclick="appendValue('9')">9</button>
+             <button class="button" onclick="appendValue('/')">/</button>
+             <button class="button" onclick="appendValue('4')">4</button>
+             <button class="button" onclick="appendValue('5')">5</button>
+             <button class="button" onclick="appendValue('6')">6</button>
+             <button class="button" onclick="appendValue('*')">*</button>
+             <button class="button" onclick="appendValue('1')">1</button>
+             <button class="button" onclick="appendValue('2')">2</button>
+             <button class="button" onclick="appendValue('3')">3</button>
+             <button class="button" onclick="appendValue('-')">-</button>
+             <button class="button" onclick="appendValue('0')">0</button>
+             <button class="button" onclick="appendValue('.')">.</button>
+             <button class="button" onclick="appendValue('+')">+</button>
+             <button class="button" onclick="evaluateExpression()">=</button>
+             <button class="button" onclick="appendFunction('sqrt')">√</button>
+             <button class="button" onclick="appendFunction('^')">^</button>
+             <button class="button" onclick="deleteLast()">DEL</button>
+             <button class="button" onclick="clearAll()">AC</button>
+         </div>
+     </div>
+ 
+     <script>
+        let clearOnNextInput = true;
 
-    function appendValue(value) {
-        if (clearOnNextInput) {
+        function appendValue(value) {
+            if (clearOnNextInput) {
+                document.getElementById("result").value = "";
+                clearOnNextInput = false;
+            }
+            document.getElementById("result").value += value;
+        }
+
+        function deleteLast() {
+            const currentValue = document.getElementById("result").value;
+            document.getElementById("result").value = currentValue.slice(0, -1);
+        }
+
+        function clearAll() {
             document.getElementById("result").value = "";
-            clearOnNextInput = false;
-        }
-        document.getElementById("result").value += value;
-    }
-
-    function deleteLast() {
-        const currentValue = document.getElementById("result").value;
-        document.getElementById("result").value = currentValue.slice(0, -1);
-    }
-
-    function clearResult() {
-        document.getElementById("result").value = "";
-        clearOnNextInput = true;
-    }
-
-    function evaluateExpression() {
-        let expression = document.getElementById("result").value;
-        try {
-            const result = eval(expression);
-            document.getElementById("result").value = result;
             clearOnNextInput = true;
-        } catch (error) {
-            document.getElementById("result").value = "Error";
         }
-    }
 
-    function validateInput() {
-        // Remove any non-numeric or non-operator characters from the input
-        const currentValue = document.getElementById("result").value;
-        document.getElementById("result").value = currentValue.replace(/[^0-9+\-*/.]/g, '');
-    }
-</script>
+        function appendFunction(func) {
+            const currentValue = document.getElementById("result").value;
+            switch (func) {
+                case 'sqrt':
+                    document.getElementById("result").value = Math.sqrt(currentValue);
+                    break;
+                case '%':
+                    document.getElementById("result").value = eval(currentValue) / 100;
+                    break;
+                case '^':
+                    document.getElementById("result").value += '^';
+                    break;
+            }
+        }
+
+        function evaluateExpression() {
+            let expression = document.getElementById("result").value;
+            try {
+                const result = eval(expression);
+                document.getElementById("result").value = result;
+                clearOnNextInput = true;
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+
+        function validateInput() {
+            const currentValue = document.getElementById("result").value;
+            document.getElementById("result").value = currentValue.replace(/[^0-9+\-*/.^()%]/g, '');
+        }
+    </script>
 </body>
 </html>

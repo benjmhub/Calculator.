@@ -33,7 +33,7 @@
 
         #result {
             font-size: 36px;
-            width: 90%;
+            width: 100%;
             height: 80px; /* Set the same height as the button */
             padding: 20px 10px; /* Add padding to the top and bottom */
             margin-bottom: 20px;
@@ -103,13 +103,19 @@
                 grid-template-columns: repeat(1, 1fr);
             }
         }
+
+        /* Additional responsive styling for smaller devices if needed */
+        @media screen and (max-width: 480px) {
+            #calculator {
+                max-width: 250px;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="calculator">
         <input type="text" id="result" readonly oninput="validateInput()">
         <div class="button-container">
-            <button class="button" onclick="clearResult()">C</button>
             <button class="button" onclick="appendValue('7')">7</button>
             <button class="button" onclick="appendValue('8')">8</button>
             <button class="button" onclick="appendValue('9')">9</button>
@@ -124,47 +130,51 @@
             <button class="button" onclick="appendValue('-')">-</button>
             <button class="button" onclick="appendValue('0')">0</button>
             <button class="button" onclick="appendValue('+')">+</button>
+        </div>
+        <div class="function-buttons">
+            <button class="button" onclick="clearResult()">C</button>
             <button class="button" onclick="appendValue('.')">.</button>
+        </div>
     </div>
 
-    <script>
-        // Updated JavaScript code
-        let clearOnNextInput = true;
+<script>
+    // Updated JavaScript code
+    let clearOnNextInput = true;
 
-        function appendValue(value) {
-            if (clearOnNextInput) {
-                document.getElementById("result").value = "";
-                clearOnNextInput = false;
-            }
-            document.getElementById("result").value += value;
-        }
-
-        function deleteLast() {
-            const currentValue = document.getElementById("result").value;
-            document.getElementById("result").value = currentValue.slice(0, -1);
-        }
-
-        function clearResult() {
+    function appendValue(value) {
+        if (clearOnNextInput) {
             document.getElementById("result").value = "";
+            clearOnNextInput = false;
+        }
+        document.getElementById("result").value += value;
+    }
+
+    function deleteLast() {
+        const currentValue = document.getElementById("result").value;
+        document.getElementById("result").value = currentValue.slice(0, -1);
+    }
+
+    function clearResult() {
+        document.getElementById("result").value = "";
+        clearOnNextInput = true;
+    }
+
+    function evaluateExpression() {
+        let expression = document.getElementById("result").value;
+        try {
+            const result = eval(expression);
+            document.getElementById("result").value = result;
             clearOnNextInput = true;
+        } catch (error) {
+            document.getElementById("result").value = "Error";
         }
+    }
 
-        function evaluateExpression() {
-            let expression = document.getElementById("result").value;
-            try {
-                const result = eval(expression);
-                document.getElementById("result").value = result;
-                clearOnNextInput = true;
-            } catch (error) {
-                document.getElementById("result").value = "Error";
-            }
-        }
-
-        function validateInput() {
-            // Remove any non-numeric or non-operator characters from the input
-            const currentValue = document.getElementById("result").value;
-            document.getElementById("result").value = currentValue.replace(/[^0-9+\-*/.]/g, '');
-        }
-    </script>
+    function validateInput() {
+        // Remove any non-numeric or non-operator characters from the input
+        const currentValue = document.getElementById("result").value;
+        document.getElementById("result").value = currentValue.replace(/[^0-9+\-*/.]/g, '');
+    }
+</script>
 </body>
 </html>

@@ -1,52 +1,63 @@
  <!DOCTYPE html>
 <html>
 <head>
-    <title>iPhone 13 Calculator</title>
+    <title>Digital 3D Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* Add your custom CSS styling here */
         body {
             font-family: Arial, sans-serif;
-            background-color: rgba(187, 138, 2, 0.8); /* Transparent chocolate color */
+            background-color: rgba(187, 138, 2, 0.8);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Use min-height to ensure full screen on smaller devices */
+            min-height: 100vh;
         }
-        #iphone13 {
-            background-color: #100b58; /* Blue color for iPhone 13 full screen */
-            border: 1px solid #124052;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-            max-width: 500px;
-            width: 80%;
-        }
+
         #calculator {
-            background-color: #030347; /* Blue color for iPhone 13 full screen */
+            background-color: rgba(0, 0, 0, 0.6); /* Transparent chocolate color */
             border: none;
             border-radius: 20px;
             padding: 20px;
-            margin: 10px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Use CSS Grid for responsive layout */
-            gap: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
             max-width: 400px;
-            margin: 0 auto; /* Center the calculator on the page */
-            box-shadow: 0 0 10px rgba(148, 7, 78, 0.3);
+            width: 80%;
+            margin: 20px;
+            display: grid;
+            grid-template-rows: auto 1fr auto; /* Rows for the result, buttons, and functions */
+            gap: 10px;
+            justify-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
         }
+
         #result {
             font-size: 36px;
-            width: 100%;
-            padding: 10px;
+            width: 90%;
+            height: 80px; /* Set the same height as the button */
+            padding: 20px 10px; /* Add padding to the top and bottom */
             margin-bottom: 20px;
             border: none;
             border-radius: 20px;
             background-color: rgba(255, 255, 255, 0.9);
-            grid-column: span 4; /* Display the result in all four columns */
+            text-align: right;
         }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+        }
+
+        .function-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            justify-items: center; /* Center horizontally */
+        }
+
         .button {
             font-size: 24px;
             width: 80px;
@@ -57,51 +68,63 @@
             background-color: #06f026; /* Green color for calculator buttons */
             color: white;
             cursor: pointer;
-        }
-        .button:hover {
-            background-color: #054905;
+            /* 3D Button Effect */
+            box-shadow: 0 4px #054905;
+            transition: box-shadow 0.3s;
         }
 
-        /* Adjust the button size and font size for smaller devices */
+        .button:hover {
+            background-color: #054905;
+            /* 3D Button Hover Effect */
+            box-shadow: 0 2px #054905;
+        }
+
         @media screen and (max-width: 768px) {
             #calculator {
                 grid-template-columns: repeat(3, 1fr);
                 max-width: 300px;
             }
+
             #result {
                 font-size: 24px;
             }
+
             .button {
                 font-size: 20px;
                 width: 60px;
                 height: 60px;
             }
+
+            .button-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .function-buttons {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     </style>
 </head>
 <body>
-    <div id="iphone13">
-        <div id="calculator">
-            <input type="text" id="result" readonly oninput="validateInput()">
+    <div id="calculator">
+        <input type="text" id="result" readonly oninput="validateInput()">
+        <div class="button-container">
             <button class="button" onclick="clearResult()">C</button>
-            <button class="button" onclick="appendValue('/')">/</button>
-            <button class="button" onclick="appendValue('*')">*</button>
-            <button class="button" onclick="appendValue('-')">-</button>
             <button class="button" onclick="appendValue('7')">7</button>
             <button class="button" onclick="appendValue('8')">8</button>
             <button class="button" onclick="appendValue('9')">9</button>
-            <button class="button" onclick="appendValue('+')">+</button>
+            <button class="button" onclick="appendValue('/')">/</button>
             <button class="button" onclick="appendValue('4')">4</button>
             <button class="button" onclick="appendValue('5')">5</button>
             <button class="button" onclick="appendValue('6')">6</button>
-            <button class="button" onclick="evaluateExpression()">=</button>
+            <button class="button" onclick="appendValue('*')">*</button>
             <button class="button" onclick="appendValue('1')">1</button>
             <button class="button" onclick="appendValue('2')">2</button>
             <button class="button" onclick="appendValue('3')">3</button>
-            <button class="button" onclick="appendValue('.')">.</button>
+            <button class="button" onclick="appendValue('-')">-</button>
             <button class="button" onclick="appendValue('0')">0</button>
-            <button class="button" onclick="deleteLast()">DEL</button>
-        </div>
+            <button class="button" onclick="appendValue('+')">+</button>
+            <button class="button" onclick="appendValue('.')">.</button>
     </div>
 
     <script>

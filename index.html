@@ -16,7 +16,7 @@
         }
 
         #calculator {
-            background-color: rgba(0, 0, 0, 0.6); /* Transparent chocolate color */
+            background-color: rgba(0, 0, 0, 0.6);
             border: none;
             border-radius: 20px;
             padding: 20px;
@@ -25,17 +25,17 @@
             width: 80%;
             margin: 20px;
             display: grid;
-            grid-template-rows: auto 1fr auto; /* Rows for the result, buttons, and functions */
+            grid-template-rows: auto 1fr auto;
             gap: 10px;
-            justify-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
+            justify-items: center;
+            justify-content: center;
         }
 
         #result {
             font-size: 36px;
             width: 100%;
-            height: 80px; /* Set the same height as the button */
-            padding: 20px 10px; /* Add padding to the top and bottom */
+            height: 80px;
+            padding: 20px 10px;
             margin-bottom: 20px;
             border: none;
             border-radius: 20px;
@@ -43,19 +43,18 @@
             text-align: right;
         }
 
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            justify-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
-        }
-
         .function-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            justify-items: center; /* Center horizontally */
+            justify-items: center;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-items: center;
         }
 
         .button {
@@ -65,17 +64,15 @@
             border: none;
             border-radius: 20px;
             margin: 10px;
-            background-color: #06f026; /* Green color for calculator buttons */
+            background-color: #06f026;
             color: white;
             cursor: pointer;
-            /* 3D Button Effect */
             box-shadow: 0 4px #054905;
             transition: box-shadow 0.3s;
         }
 
         .button:hover {
             background-color: #054905;
-            /* 3D Button Hover Effect */
             box-shadow: 0 2px #054905;
         }
 
@@ -104,10 +101,21 @@
             }
         }
 
-        /* Additional responsive styling for smaller devices if needed */
+        /* Additional media queries for smaller devices (mobile phones) */
         @media screen and (max-width: 480px) {
             #calculator {
                 max-width: 250px;
+            }
+
+            #result {
+                font-size: 20px;
+                height: 60px;
+            }
+
+            .button {
+                font-size: 16px;
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
@@ -115,6 +123,10 @@
 <body>
     <div id="calculator">
         <input type="text" id="result" readonly oninput="validateInput()">
+        <div class="function-buttons">
+            <button class="button" onclick="clearResult()">C</button>
+            <button class="button" onclick="appendValue('.')">.</button>
+        </div>
         <div class="button-container">
             <button class="button" onclick="appendValue('7')">7</button>
             <button class="button" onclick="appendValue('8')">8</button>
@@ -130,10 +142,6 @@
             <button class="button" onclick="appendValue('-')">-</button>
             <button class="button" onclick="appendValue('0')">0</button>
             <button class="button" onclick="appendValue('+')">+</button>
-        </div>
-        <div class="function-buttons">
-            <button class="button" onclick="clearResult()">C</button>
-            <button class="button" onclick="appendValue('.')">.</button>
         </div>
     </div>
 
